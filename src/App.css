@@ -1,31 +1,308 @@
+/* ------------------------------
+   VARIABLES
+-------------------------------- */
+:root {
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --accent: #0ea5a4;
+  --muted: #6b7280;
+  --good: #16a34a;
+  --bad: #dc2626;
+
+  --glass: rgba(255,255,255,0.7);
+  --shadow: 0 8px 30px rgba(10,10,10,0.06);
+  --radius: 14px;
+  --font: "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;
+}
+
+/* ------------------------------
+   GLOBAL RESET
+-------------------------------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: linear-gradient(180deg, #eef2ff 0%, var(--bg) 100%);
+  color: #111;
+}
+
 .App {
+  max-width: 1100px;
+  margin: 28px auto;
+  padding: 18px;
+}
+
+/* ------------------------------
+   HEADER
+-------------------------------- */
+h1 {
+  margin-top: 0;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+/* ------------------------------
+   STATS BAR
+-------------------------------- */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 14px 0 20px;
+}
+
+.stats p {
+  background: var(--card);
+  padding: 10px 14px;
+  font-weight: 700;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
+/* ------------------------------
+   ACTION BUTTONS
+-------------------------------- */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.actions button {
+  background: linear-gradient(180deg, #f8fafc, #eef2ff);
+  border: 1px solid rgba(0,0,0,0.06);
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .08s ease, box-shadow .12s ease;
+}
+
+.actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+}
+
+/* ------------------------------
+   SLOT REELS
+-------------------------------- */
+.slots {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 26px 0;
+}
+
+.reel {
+  width: 140px;
+  height: 140px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff, #fbfbff);
+  border: 2px solid rgba(10,10,10,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(12,12,12,0.06);
+  overflow: hidden;
+  position: relative;
+}
+
+.reel span {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.reel.spin span {
+  animation: reelSpin .5s linear 0s 6;
+}
+
+@keyframes reelSpin {
+  0% { transform: translateY(0) scale(1); }
+  25% { transform: translateY(-120%) scale(.9); }
+  50% { transform: translateY(120%) scale(.95); }
+  75% { transform: translateY(-60%) scale(.98); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* ------------------------------
+   BET INPUT + SPIN BUTTON
+-------------------------------- */
+.bet {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.bet input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.08);
+  width: 140px;
+  text-align: center;
+  background: #f8fafc;
+}
+
+.spin-btn {
+  background: linear-gradient(90deg, var(--accent), #06b6d4);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .08s ease;
+}
+
+.spin-btn:hover {
+  transform: scale(1.04);
+}
+
+/* ------------------------------
+   MESSAGE AREA
+-------------------------------- */
+.message {
+  margin-top: 18px;
+  padding: 12px;
+  background: var(--glass);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Win/Lose Glow */
+.win {
+  box-shadow:
+    0 0 18px 4px rgba(34,197,94,0.14),
+    0 10px 30px rgba(16,24,40,0.06);
+  border: 2px solid rgba(34,197,94,0.12);
+}
+
+.lose {
+  box-shadow:
+    0 0 18px 4px rgba(220,38,38,0.12);
+  border: 2px solid rgba(220,38,38,0.12);
+}
+
+/* ------------------------------
+   MODAL + OVERLAY
+-------------------------------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 420px;
+  max-width: 92%;
+  padding: 22px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.28);
+  z-index: 1001;
+  animation: popupIn .18s ease-out;
+}
+
+@keyframes popupIn {
+  0% { opacity: 0; transform: translate(-50%, -44%) scale(0.92); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.modal h2 {
+  margin-top: 0;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.modal-content {
+  margin: 14px 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.close-btn {
+  display: block;
+  width: 100%;
+  background: #eee;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+/* ------------------------------
+   POPUP ACTION BUTTONS
+-------------------------------- */
+.popup-actions {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.popup-action-btn {
+  padding: 10px 14px;
+  background: #eef2ff;
+  border-radius: 8px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: 0.15s;
 }
 
-.heart {
-  color: #ff0000;
+.popup-action-btn:hover {
+  background: #e0e4ff;
 }
 
-.small {
-  font-size: 0.75rem;
+/* ------------------------------
+   BANK ROW INPUTS
+-------------------------------- */
+.bank-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.bank-row input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.bank-row button {
+  padding: 10px 14px;
+  background: #e4e9ff;
+  font-weight: 700;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+/* ------------------------------
+   RESPONSIVE
+-------------------------------- */
+@media (max-width: 900px) {
+  .reel {
+    width: 110px;
+    height: 110px;
+  }
+
+  .reel span {
+    font-size: 22px;
+  }
 }
